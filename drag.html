@@ -35,6 +35,7 @@
                 (event) => {
                     // store a ref. on the dragged elem
                     dragged = event.target;
+                    event.dataTransfer.setData('id', 'drag1');
                     // make it half transparent
                     event.target.style.opacity = 0.5;
                     console.log('dragstart: ', event, 'kankan', 'sfe');
@@ -80,12 +81,16 @@
             );
             /**
              * chrome下必须阻止dragenter和dragover的默认行为，才能触发drop事件
-             * DataTransfer 对象用于保存拖动并放下（drag and drop）过程中的数据。它可以保存一项或多项数据，这些数据项可以是一种或者多种数据类型
+             * DataTransfer:
+             * 对象用于保存拖动并放下（drag and drop）过程中的数据。它可以保存一项或多项数据，这些数据项可以是一种或者多种数据类型
+             * setData -> 设置数据
+             * getData -> 获取数据
              */
             dragEl2.addEventListener(
                 'drop',
                 (event) => {
-                    console.log('drop:', event.dataTransfer);
+                    console.log('drop:', event.dataTransfer.getData('id'));
+                    event.target.appendChild(document.getElementById(event.dataTransfer.getData('id')));
                     event.preventDefault();
                 },
                 false
