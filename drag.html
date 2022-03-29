@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style type="text/css">
+            .drag {
+                width: 100px;
+                height: 100px;
+                color: white;
+            }
+            .drag1 {
+                background-color: red;
+            }
+            .drag2 {
+                width: 300px;
+                height: 300px;
+                background: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="drag1" draggable="true" class="drag drag1">drag1</div>
+        <div id="drag2" class="drag drag2">
+            <span draggable="true">drag2</span>
+        </div>
+        <script>
+            console.log('加载~~~sfef');
+            const dragEl = document.getElementById('drag1');
+            const dragEl2 = document.getElementById('drag2');
+            dragEl.addEventListener(
+                'dragstart',
+                (event) => {
+                    // store a ref. on the dragged elem
+                    dragged = event.target;
+                    // make it half transparent
+                    event.target.style.opacity = 0.5;
+                    console.log('dragstart: ', event, 'kankan', 'sfe');
+                },
+                false
+            );
+            dragEl.addEventListener(
+                'drag',
+                (event) => {
+                    // console.log('drag:', event);
+                },
+                false
+            );
+            dragEl.addEventListener(
+                'dragend',
+                (event) => {
+                    console.log('dragend:', event);
+                },
+                false
+            );
+            dragEl2.addEventListener(
+                'dragenter',
+                (event) => {
+                    event.preventDefault();
+                    console.log('dragenter:', event);
+                },
+                false
+            );
+            dragEl2.addEventListener(
+                'dragover',
+                (event) => {
+                    event.preventDefault();
+                    // console.log('dragover:', event);
+                },
+                false
+            );
+            dragEl2.addEventListener(
+                'dragleave',
+                (event) => {
+                    console.log('dragleave:', event);
+                },
+                false
+            );
+            /**
+             * chrome下必须阻止dragenter和dragover的默认行为，才能触发drop事件
+             * DataTransfer 对象用于保存拖动并放下（drag and drop）过程中的数据。它可以保存一项或多项数据，这些数据项可以是一种或者多种数据类型
+             */
+            dragEl2.addEventListener(
+                'drop',
+                (event) => {
+                    console.log('drop:', event.dataTransfer);
+                    event.preventDefault();
+                },
+                false
+            );
+        </script>
+    </body>
+</html>
